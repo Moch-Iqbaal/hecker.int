@@ -20,6 +20,804 @@
   --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
 }
 
+
+    /* ============================================================
+   NETWORK STATUS SECTION — sesuai style H.INT
+   ============================================================ */
+
+    /* ── Wrapper ── */
+    #network-status {
+      position: relative;
+      background: var(--bg, #0a0f0a);
+      padding: 100px 40px;
+      overflow: hidden;
+    }
+
+    /* scanline overlay */
+    #network-status::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 255, 65, 0.012) 2px,
+          rgba(0, 255, 65, 0.012) 4px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* grid BG */
+    #network-status::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+      background-size: 44px 44px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* glow orbs */
+    .ns-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(110px);
+      pointer-events: none;
+      z-index: 0;
+      animation: ns-orb-float 9s ease-in-out infinite;
+    }
+
+    .ns-orb-1 {
+      width: 480px;
+      height: 480px;
+      background: var(--accent, #00ff41);
+      opacity: .07;
+      top: -160px;
+      left: -120px;
+    }
+
+    .ns-orb-2 {
+      width: 360px;
+      height: 360px;
+      background: #00e5ff;
+      opacity: .06;
+      bottom: -100px;
+      right: -80px;
+      animation-direction: reverse;
+      animation-duration: 11s;
+    }
+
+    @keyframes ns-orb-float {
+
+      0%,
+      100% {
+        transform: translate(0, 0)
+      }
+
+      50% {
+        transform: translate(18px, -18px)
+      }
+    }
+
+    .ns-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ── Header ── */
+    .ns-live-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent, #00ff41);
+      margin-bottom: 14px;
+    }
+
+    .ns-live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent, #00ff41);
+      box-shadow: 0 0 8px var(--accent, #00ff41), 0 0 18px var(--accent, #00ff41);
+      animation: ns-blink 1.6s ease-in-out infinite;
+    }
+
+    @keyframes ns-blink {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1)
+      }
+
+      50% {
+        opacity: .4;
+        transform: scale(.7)
+      }
+    }
+
+    .ns-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      color: var(--text, #e0ffe8);
+      line-height: 1;
+      margin-bottom: 10px;
+      letter-spacing: -1px;
+    }
+
+    .ns-title .accent {
+      color: var(--accent, #00ff41);
+      text-shadow: 0 0 28px rgba(0, 255, 65, .55);
+    }
+
+    .ns-subtitle {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: rgba(0, 255, 65, .45);
+      margin-bottom: 50px;
+      letter-spacing: 1px;
+    }
+
+    .ns-subtitle em {
+      color: #00e5ff;
+      font-style: normal;
+    }
+
+    /* ── Uptime Bar ── */
+    .ns-uptime-bar {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 16px 22px;
+      background: rgba(0, 255, 65, .04);
+      border: 1px solid rgba(0, 255, 65, .18);
+      border-left: 3px solid var(--accent, #00ff41);
+      border-radius: 4px;
+      margin-bottom: 40px;
+    }
+
+    .ns-uptime-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(0, 255, 65, .45);
+      white-space: nowrap;
+    }
+
+    .ns-uptime-track {
+      flex: 1;
+      height: 5px;
+      background: rgba(0, 255, 65, .1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .ns-uptime-fill {
+      height: 100%;
+      width: 99.97%;
+      background: linear-gradient(90deg, #00ff41, #00e5ff);
+      border-radius: 3px;
+      box-shadow: 0 0 10px rgba(0, 255, 65, .5);
+      animation: ns-uptime-pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes ns-uptime-pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 10px rgba(0, 255, 65, .5)
+      }
+
+      50% {
+        box-shadow: 0 0 20px rgba(0, 229, 255, .8)
+      }
+    }
+
+    .ns-uptime-val {
+      font-family: 'Orbitron', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent, #00ff41);
+      white-space: nowrap;
+    }
+
+    /* ── Grid layouts ── */
+    .ns-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .ns-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .ns-grid-2b {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    /* ── Base Card ── */
+    .ns-card {
+      position: relative;
+      background: var(--card-bg, #0d1f0d);
+      border: 1px solid rgba(0, 255, 65, .18);
+      border-radius: 6px;
+      padding: 26px;
+      overflow: hidden;
+      transition: border-color .3s, transform .3s, background .3s;
+      cursor: default;
+    }
+
+    .ns-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0, 255, 65, .03) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .ns-card:hover {
+      border-color: rgba(0, 255, 65, .5);
+      background: rgba(0, 255, 65, .06);
+      transform: translateY(-2px);
+    }
+
+    .ns-card-glow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent, #00ff41), transparent);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .ns-card:hover .ns-card-glow {
+      opacity: 1;
+    }
+
+    /* ── Card content atoms ── */
+    .ns-clabel {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(0, 255, 65, .4);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ns-clabel::before {
+      content: '//';
+      color: rgba(0, 255, 65, .18);
+    }
+
+    .ns-cval {
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 1.9rem;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .ns-cval.sm {
+      font-size: 1.4rem;
+    }
+
+    .ns-cval.g {
+      color: var(--accent, #00ff41);
+      text-shadow: 0 0 18px rgba(0, 255, 65, .4);
+    }
+
+    .ns-cval.c {
+      color: #00e5ff;
+      text-shadow: 0 0 18px rgba(0, 229, 255, .4);
+    }
+
+    .ns-cval.a {
+      color: #ffa500;
+      text-shadow: 0 0 18px rgba(255, 165, 0, .4);
+    }
+
+    .ns-cval.r {
+      color: #ff073a;
+      text-shadow: 0 0 18px rgba(255, 7, 58, .4);
+    }
+
+    .ns-cval.w {
+      color: var(--text, #e0ffe8);
+    }
+
+    .ns-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      padding: 4px 10px;
+      border-radius: 2px;
+      margin-top: 8px;
+    }
+
+    .ns-badge.ok {
+      background: rgba(0, 255, 65, .1);
+      color: var(--accent, #00ff41);
+      border: 1px solid rgba(0, 255, 65, .22);
+    }
+
+    .ns-badge.warn {
+      background: rgba(255, 165, 0, .1);
+      color: #ffa500;
+      border: 1px solid rgba(255, 165, 0, .22);
+    }
+
+    .ns-badge.err {
+      background: rgba(255, 7, 58, .1);
+      color: #ff073a;
+      border: 1px solid rgba(255, 7, 58, .22);
+    }
+
+    .ns-badge-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: ns-blink 1.5s ease-in-out infinite;
+    }
+
+    .ns-meta {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: rgba(0, 255, 65, .4);
+      margin-top: 7px;
+    }
+
+    .ns-meta span {
+      color: var(--accent, #00ff41);
+    }
+
+    .ns-meta span.c {
+      color: #00e5ff;
+    }
+
+    /* ── Graph ── */
+    .ns-graph-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .ns-graph-meta {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: rgba(0, 255, 65, .4);
+      text-align: right;
+      line-height: 1.7;
+    }
+
+    .ns-graph-meta span.g {
+      color: var(--accent, #00ff41);
+    }
+
+    .ns-graph-meta span.c {
+      color: #00e5ff;
+    }
+
+    .ns-graph-area {
+      position: relative;
+      height: 88px;
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      overflow: hidden;
+    }
+
+    .ns-bar {
+      flex: 1;
+      border-radius: 2px 2px 0 0;
+      background: linear-gradient(to top, var(--accent, #00ff41), rgba(0, 229, 255, .6));
+      box-shadow: 0 0 5px rgba(0, 255, 65, .3);
+      animation: ns-bar-grow .8s ease-out both;
+      transition: opacity .3s;
+      min-width: 0;
+    }
+
+    .ns-bar:hover {
+      opacity: .65;
+    }
+
+    @keyframes ns-bar-grow {
+      from {
+        transform: scaleY(0);
+        transform-origin: bottom
+      }
+
+      to {
+        transform: scaleY(1);
+        transform-origin: bottom
+      }
+    }
+
+    .ns-baseline {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: rgba(0, 255, 65, .12);
+    }
+
+    .ns-graph-ticks {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      color: rgba(0, 255, 65, .3);
+      letter-spacing: 1px;
+    }
+
+    /* ── Resource meters ── */
+    .ns-res-grid {
+      display: flex;
+      gap: 24px;
+      margin-top: 12px;
+    }
+
+    .ns-res-item {
+      flex: 1;
+    }
+
+    .ns-res-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: rgba(0, 255, 65, .4);
+      margin-bottom: 7px;
+      text-transform: uppercase;
+    }
+
+    .ns-res-track {
+      height: 4px;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .ns-res-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 1.2s ease;
+    }
+
+    .ns-res-fill.g {
+      background: linear-gradient(90deg, var(--accent, #00ff41), #00e5ff);
+      box-shadow: 0 0 8px rgba(0, 255, 65, .45);
+    }
+
+    .ns-res-fill.a {
+      background: linear-gradient(90deg, #ffa500, #ff073a);
+      box-shadow: 0 0 8px rgba(255, 165, 0, .4);
+    }
+
+    .ns-res-fill.c {
+      background: #00e5ff;
+      box-shadow: 0 0 8px rgba(0, 229, 255, .4);
+    }
+
+    .ns-res-bg-g {
+      background: rgba(0, 255, 65, .1);
+    }
+
+    .ns-res-bg-a {
+      background: rgba(255, 165, 0, .1);
+    }
+
+    .ns-res-bg-c {
+      background: rgba(0, 229, 255, .1);
+    }
+
+    /* ── Node list ── */
+    .ns-node-list {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      margin-top: 12px;
+    }
+
+    .ns-node-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+    }
+
+    .ns-node-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .ns-node-dot.on {
+      background: var(--accent, #00ff41);
+      box-shadow: 0 0 7px var(--accent, #00ff41);
+      animation: ns-blink 2s ease-in-out infinite;
+    }
+
+    .ns-node-dot.sb {
+      background: #00e5ff;
+      box-shadow: 0 0 7px #00e5ff;
+    }
+
+    .ns-node-dot.of {
+      background: #ff073a;
+      box-shadow: 0 0 7px #ff073a;
+    }
+
+    .ns-node-name {
+      flex: 1;
+      color: rgba(224, 255, 232, .65);
+    }
+
+    .ns-node-name.of-text {
+      color: rgba(255, 7, 58, .5);
+    }
+
+    .ns-node-ping {
+      color: var(--accent, #00ff41);
+      margin-left: auto;
+      padding-right: 10px;
+    }
+
+    .ns-node-ping.sb {
+      color: #00e5ff;
+    }
+
+    .ns-node-ping.of {
+      color: #ff073a;
+    }
+
+    .ns-node-bwrap {
+      width: 72px;
+      height: 3px;
+      background: rgba(0, 255, 65, .1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .ns-node-bfill {
+      height: 100%;
+      border-radius: 2px;
+    }
+
+    .ns-node-bfill.g {
+      background: var(--accent, #00ff41);
+    }
+
+    .ns-node-bfill.c {
+      background: #00e5ff;
+    }
+
+    .ns-node-bfill.r {
+      background: #ff073a;
+    }
+
+    /* ── Activity Log ── */
+    .ns-log-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-top: 12px;
+      max-height: 155px;
+      overflow: hidden;
+    }
+
+    .ns-log-item {
+      display: flex;
+      gap: 10px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10.5px;
+      line-height: 1.4;
+      padding: 5px 10px;
+      background: rgba(0, 255, 65, .03);
+      border-left: 2px solid;
+      border-radius: 0 2px 2px 0;
+      animation: ns-slide-in .4s ease-out both;
+    }
+
+    @keyframes ns-slide-in {
+      from {
+        opacity: 0;
+        transform: translateX(-8px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0)
+      }
+    }
+
+    .ns-log-item.ok {
+      border-color: var(--accent, #00ff41);
+    }
+
+    .ns-log-item.info {
+      border-color: #00e5ff;
+    }
+
+    .ns-log-item.warn {
+      border-color: #ffa500;
+    }
+
+    .ns-log-item.err {
+      border-color: #ff073a;
+    }
+
+    .ns-log-time {
+      color: rgba(0, 255, 65, .35);
+      white-space: nowrap;
+    }
+
+    .ns-log-type {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .ns-log-item.ok .ns-log-type {
+      color: var(--accent, #00ff41);
+    }
+
+    .ns-log-item.info .ns-log-type {
+      color: #00e5ff;
+    }
+
+    .ns-log-item.warn .ns-log-type {
+      color: #ffa500;
+    }
+
+    .ns-log-item.err .ns-log-type {
+      color: #ff073a;
+    }
+
+    .ns-log-msg {
+      color: rgba(224, 255, 232, .55);
+    }
+
+    /* ── Ticker ── */
+    .ns-ticker {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 20px;
+      background: rgba(0, 255, 65, .04);
+      border: 1px solid rgba(0, 255, 65, .15);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 24px;
+    }
+
+    .ns-ticker-lbl {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--accent, #00ff41);
+      text-transform: uppercase;
+      white-space: nowrap;
+      border-right: 1px solid rgba(0, 255, 65, .18);
+      padding-right: 16px;
+    }
+
+    .ns-ticker-track {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .ns-ticker-inner {
+      display: flex;
+      gap: 56px;
+      white-space: nowrap;
+      animation: ns-ticker 28s linear infinite;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: rgba(0, 255, 65, .65);
+    }
+
+    @keyframes ns-ticker {
+      0% {
+        transform: translateX(0)
+      }
+
+      100% {
+        transform: translateX(-50%)
+      }
+    }
+
+    .ns-t-key {
+      color: rgba(0, 255, 65, .35);
+    }
+
+    .ns-t-sep {
+      color: rgba(0, 255, 65, .18);
+    }
+
+    .ns-t-val {
+      color: var(--accent, #00ff41);
+      font-weight: 700;
+    }
+
+    .ns-t-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width:900px) {
+      .ns-grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .ns-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .ns-grid-2b {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width:540px) {
+      #network-status {
+        padding: 60px 18px;
+      }
+
+      .ns-grid-4 {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .ns-cval {
+        font-size: 1.5rem;
+      }
+
+      .ns-cval.sm {
+        font-size: 1.2rem;
+      }
+
+      .ns-title {
+        font-size: 1.8rem;
+      }
+
+      .ns-res-grid {
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
+  
 [data-theme="dark"] {
   --bg: #080d14;
   --bg2: #0d1520;
